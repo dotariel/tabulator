@@ -1,5 +1,5 @@
 {
-  "name": "dotariel-tabulator-tables",
+  "name": "tabulator-tables-dotariel",
   "version": "4.5.3",
   "description": "Interactive table generation JavaScript library",
   "main": "dist/js/tabulator.js",
