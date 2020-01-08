@@ -1,5 +1,5 @@
 {
-  "name": "tabulator-tables",
+  "name": "dotariel-tabulator-tables",
   "version": "4.5.3",
   "description": "Interactive table generation JavaScript library",
   "main": "dist/js/tabulator.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/olifolkerd/tabulator.git"
+    "url": "https://github.com/dotariel/tabulator.git"
   },
   "keywords": [
     "table",
@@ -33,7 +33,7 @@
   "author": "Oli Folkerd",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/olifolkerd/tabulator/issues"
+    "url": "https://github.com/dotariel/tabulator/issues"
   },
   "homepage": "http://tabulator.info/",
   "devDependencies": {
