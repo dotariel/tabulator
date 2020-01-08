@@ -4,3 +4,8 @@ node_js:
 before_script:
   - npm install -g gulp-cli
 script: gulp tabulator
+
+deploy:
+  provider: npm
+  email: xsaint32@gmail.com
+  api_key: ed7b2cfd-262b-468e-a865-8944a761f438
