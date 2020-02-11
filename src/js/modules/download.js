@@ -647,7 +647,7 @@ Download.prototype.downloaders = {
 		}
 
 		if(title){
-			autoTableParams.addPageContent = function(data) {
+			autoTableParams.didDrawPage = function(data) {
 				doc.text(title, 40, 30);
 			};
 		}
