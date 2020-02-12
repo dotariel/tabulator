@@ -470,6 +470,8 @@ Download.prototype.downloaders = {
 			jsPDFParams.unit = "pt";
 		}
 
+        let rowStyles = options.rowStyles ? options.rowStyles : {};
+
 		//build column headers
 		function parseSimpleTitles(){
 			columns.forEach(function(column){
@@ -554,10 +556,10 @@ Download.prototype.downloaders = {
 			return value;
 		}
 
-		function parseRows(data){
+		function parseRows(data, rowStyle){
 			//build table rows
 			data.forEach(function(row){
-				body.push(parseRow(row));
+				body.push(parseRow(row, rowStyle));
 			});
 		}
 
@@ -569,10 +571,15 @@ Download.prototype.downloaders = {
 				value = parseValue(value);
 
 				if(styles){
-					rowData.push({
-						content:value,
-						styles:styles,
-					});
+                    let input = {
+                        content:value,
+                        styles:styles
+                    };
+                    if(!isNaN(value)){
+                        input.styles.halign =  'right';
+                    }
+                    rowData.push(input);
+                    
 				}else{
 					rowData.push(value);
 				}
@@ -584,7 +591,27 @@ Download.prototype.downloaders = {
 		function parseGroup(group, calcObj){
 			var groupData = [];
 
-			groupData.push({content:parseValue(group.key), colSpan:fields.length, styles:rowGroupStyles});
+            let groupWrapper = {
+                _group: group,
+                getKey:function(){
+                    return this._group.key;
+                },
+                getField:function(){
+                    return this._group.field;
+                },
+                getElement:function(){
+                    return this._group.element;
+                },
+                getRows:function(){
+                    return this._group.getRows(true);
+                },
+                getVisibility:function(){
+                    return this._group.visible;
+                }
+            };
+
+            let value = group.generator(group.key, group.rows.length, group.rows, groupWrapper);            
+			groupData.push({content:parseValue(value), colSpan:fields.length, styles:rowGroupStyles});            
 
 			body.push(groupData);
 
@@ -598,7 +625,7 @@ Download.prototype.downloaders = {
 					addCalcRow(calcObj, group.key, "top");
 				}
 
-				parseRows(group.rows);
+				parseRows(group.rows, rowStyles);
 
 				if(config.columnCalcs){
 					addCalcRow(calcObj, group.key, "bottom");
@@ -629,7 +656,7 @@ Download.prototype.downloaders = {
 				addCalcRow(calcs, "top");
 			}
 
-			parseRows(data);
+			parseRows(data, rowStyles);
 
 			if(config.columnCalcs){
 				addCalcRow(calcs, "bottom");
