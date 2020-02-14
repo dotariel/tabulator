@@ -574,10 +574,7 @@ Download.prototype.downloaders = {
                     let input = {
                         content:value,
                         styles:styles
-                    };
-                    if(!isNaN(value)){
-                        input.styles.halign =  'right';
-                    }
+                    };                    
                     rowData.push(input);
                     
 				}else{
